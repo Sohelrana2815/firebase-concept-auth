@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Register = () => {
+  const [error, setError] = useState("");
   const { registerUser } = useContext(AuthContext);
-  console.log(registerUser);
+  // console.log(registerUser);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -11,6 +12,21 @@ const Register = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
+
+    if (password.length < 6) {
+      setError("Password must be 6 characters");
+      return;
+    }
+    if (!/\d{2,}$/.test(password)) {
+      setError("Password must contain at least 2 numbers at the end!");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Password did not match");
+      return;
+    }
+
+    setError("");
     console.log(name, email, password, confirmPassword);
     registerUser(email, password);
   };
@@ -79,6 +95,7 @@ const Register = () => {
                   value="Register"
                 />
               </div>
+              {error && <small className="text-red-600">{error}</small>}
             </form>
           </div>
         </div>
