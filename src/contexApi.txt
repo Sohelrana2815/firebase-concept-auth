@@ -1,0 +1,15 @@
+1. create a context 
+    const DataContext = createContext(null)
+2. wrap the children components with the context provider
+
+        const data ={name:'srm'}
+
+    <DataContext.provider value = {{data}}>
+      <Children/>
+    </DataContext.provider>
+
+3. access context value
+      
+      import {DataContext} from "../path"
+
+    const contextData = useContext ()

@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+
 const Register = () => {
+  const { registerUser } = useContext(AuthContext);
+  console.log(registerUser);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -6,6 +12,7 @@ const Register = () => {
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
     console.log(name, email, password, confirmPassword);
+    registerUser(email, password);
   };
   return (
     <>
