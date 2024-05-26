@@ -6,7 +6,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, setUser } = useContext(AuthContext);
   // console.log(registerUser);
 
   const handleRegister = (e) => {
@@ -35,10 +35,12 @@ const Register = () => {
       setError("Password must contain one special character");
       return;
     }
-
+    setEmailError("");
     setError("");
     console.log(name, email, password, confirmPassword);
-    registerUser(email, password);
+    registerUser(email, password)
+      .then((result) => setUser(result.user))
+      .catch((error) => setError(error.message));
   };
 
   return (
