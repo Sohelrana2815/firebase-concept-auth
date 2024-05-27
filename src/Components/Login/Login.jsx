@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, googleLogin, setUser, faceBookLogin } =
+    useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -10,6 +11,16 @@ const Login = () => {
     const password = e.target.password.value;
     console.log(email, password);
     loginUser(email, password);
+  };
+  const handleGoogleLogin = () => {
+    googleLogin().then((result) => {
+      setUser(result.user);
+    });
+  };
+  const handleFaceBookLogin = () => {
+    faceBookLogin().then((result) => {
+      setUser(result.user);
+    });
   };
   return (
     <>
@@ -57,6 +68,18 @@ const Login = () => {
                 />
               </div>
             </form>
+            <button
+              onClick={handleGoogleLogin}
+              className="btn btn-secondary w-[213px] mx-auto "
+            >
+              Google login
+            </button>
+            <button
+              onClick={handleFaceBookLogin}
+              className="btn btn-info w-[213px] mx-auto "
+            >
+              Facebook login
+            </button>
           </div>
         </div>
       </div>
